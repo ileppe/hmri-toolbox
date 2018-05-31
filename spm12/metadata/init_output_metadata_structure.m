@@ -32,7 +32,8 @@ for cinput = 1:size(input_files,1)
     filename = spm_file(input_files(cinput,:),'number','');
     metastruc.history.input{cinput}.filename = filename;
     hdr = get_metadata(filename);
-    if ~isempty(hdr{1})
+    %if ~isempty(hdr{1}) %IRL crashes if there is no history field
+    if isfield(hdr{1},'history')
         metastruc.history.input{cinput}.history = hdr{1}.history;
     else
         metastruc.history.input{cinput}.history = 'No history available.';
